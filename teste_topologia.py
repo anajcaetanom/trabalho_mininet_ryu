@@ -1,9 +1,23 @@
-from mininet.net import Mininet
-from mininet.node import RemoteController, OVSKernelSwitch
+import sys
+from functools import partial
+from time import sleep
+
+import networkx as nx
 from mininet.cli import CLI
 from mininet.log import setLogLevel
-from time import sleep
-import sys
+from mininet.net import Mininet
+from mininet.node import OVSKernelSwitch, RemoteController
+
+
+def read_topo(topo_file):
+    graph = nx.read_edgelist(
+        topo_file, 
+        comments='#', 
+        nodetype=str,
+        data=False
+    )
+
+    graph.remove_
 
 def start_network(edge_list_file):
     net = Mininet(controller=RemoteController, switch=OVSKernelSwitch)
