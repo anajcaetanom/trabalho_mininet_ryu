@@ -18,4 +18,12 @@ h3-eth0<->s3-eth1 (OK OK)
 s1-eth2<->s2-eth2 (OK OK) 
 s1-eth3<->s3-eth2 (OK OK) 
 s2-eth3<->s3-eth3 (OK OK) 
+mininet> dump
+<Host h1: h1-eth0:10.0.0.1 pid=5844> 
+<Host h2: h2-eth0:10.0.0.2 pid=5858> 
+<Host h3: h3-eth0:10.0.0.3 pid=5870> 
+<OVSSwitch s1: lo:127.0.0.1,s1-eth1:None,s1-eth2:None,s1-eth3:None pid=5839> 
+<OVSSwitch s2: lo:127.0.0.1,s2-eth1:None,s2-eth2:None,s2-eth3:None pid=5854> 
+<OVSSwitch s3: lo:127.0.0.1,s3-eth1:None,s3-eth2:None,s3-eth3:None pid=5867> 
+<RemoteController c0: 127.0.0.1:6633 pid=5832> 
 mininet> 
