@@ -46,7 +46,7 @@ def start_network(edge_list_file):
     
     print("Enviando Gratuitous ARP de todos os hosts para descoberta pelo Ryu...")
     for h in net.hosts:
-        h.cmd('arping -U -c 1 ' + h.IP())
+        h.cmd('arping -U -I ' + h.defaultIntf().name + ' -c 1 ' + h.IP())
         sleep(0.1)
     
     CLI(net)
