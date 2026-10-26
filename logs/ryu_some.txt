@@ -1,0 +1,178 @@
+mininet@mininet-vm:~/trabalho_mininet_ryu$ ryu-manager --observe-links topo_discover.py
+loading app topo_discover.py
+loading app ryu.topology.switches
+loading app ryu.controller.ofp_handler
+instantiating app topo_discover.py of TopoDiscover
+instantiating app ryu.topology.switches of Switches
+instantiating app ryu.controller.ofp_handler of OFPHandler
+
+Switches mapeados atualmente: [1]
+
+Switches mapeados atualmente: [1, 2]
+
+Switches mapeados atualmente: [1, 2, 3]
+
+Switches mapeados atualmente: [1, 2, 3, 4]
+
+Switches mapeados atualmente: [1, 2, 3, 4, 5]
+
+Switches mapeados atualmente: [1, 2, 3, 4, 5, 6]
+
+ARP recebido do IP 10.0.0.1, MAC 6a:54:f2:29:ce:27 no Switch 1, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+Conexo: True
+=============================================
+
+ARP recebido do IP 10.0.0.2, MAC 66:be:5d:09:0e:b5 no Switch 2, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+  10.0.0.2 (MAC 66:be:5d:09:0e:b5) -> s2 (porta 1)
+Conexo: True
+=============================================
+
+ARP recebido do IP 10.0.0.3, MAC 82:9b:ef:a2:74:34 no Switch 3, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+  10.0.0.2 (MAC 66:be:5d:09:0e:b5) -> s2 (porta 1)
+  10.0.0.3 (MAC 82:9b:ef:a2:74:34) -> s3 (porta 1)
+Conexo: True
+=============================================
+
+ARP recebido do IP 10.0.0.4, MAC 6e:99:cc:04:c2:44 no Switch 4, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+  10.0.0.2 (MAC 66:be:5d:09:0e:b5) -> s2 (porta 1)
+  10.0.0.3 (MAC 82:9b:ef:a2:74:34) -> s3 (porta 1)
+  10.0.0.4 (MAC 6e:99:cc:04:c2:44) -> s4 (porta 1)
+Conexo: True
+=============================================
+
+ARP recebido do IP 10.0.0.5, MAC 5e:97:44:23:d1:a2 no Switch 5, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+  10.0.0.2 (MAC 66:be:5d:09:0e:b5) -> s2 (porta 1)
+  10.0.0.3 (MAC 82:9b:ef:a2:74:34) -> s3 (porta 1)
+  10.0.0.4 (MAC 6e:99:cc:04:c2:44) -> s4 (porta 1)
+  10.0.0.5 (MAC 5e:97:44:23:d1:a2) -> s5 (porta 1)
+Conexo: True
+=============================================
+
+ARP recebido do IP 10.0.0.6, MAC f6:20:ac:10:99:93 no Switch 6, porta 1
+
+================= TOPOLOGIA =================
+Switches: 
+  s1
+  s2
+  s3
+  s4
+  s5
+  s6
+Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
+  s1 (porta 3) <-> s4 (porta 2)
+  s1 (porta 4) <-> s5 (porta 2)
+  s2 (porta 3) <-> s4 (porta 3)
+  s2 (porta 4) <-> s6 (porta 2)
+  s3 (porta 2) <-> s4 (porta 4)
+  s3 (porta 3) <-> s5 (porta 3)
+  s4 (porta 5) <-> s6 (porta 3)
+Hosts:
+  10.0.0.1 (MAC 6a:54:f2:29:ce:27) -> s1 (porta 1)
+  10.0.0.2 (MAC 66:be:5d:09:0e:b5) -> s2 (porta 1)
+  10.0.0.3 (MAC 82:9b:ef:a2:74:34) -> s3 (porta 1)
+  10.0.0.4 (MAC 6e:99:cc:04:c2:44) -> s4 (porta 1)
+  10.0.0.5 (MAC 5e:97:44:23:d1:a2) -> s5 (porta 1)
+  10.0.0.6 (MAC f6:20:ac:10:99:93) -> s6 (porta 1)
+Conexo: True
+=============================================

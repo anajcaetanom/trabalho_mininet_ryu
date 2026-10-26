@@ -6,13 +6,13 @@ instantiating app topo_discover.py of TopoDiscover
 instantiating app ryu.topology.switches of Switches
 instantiating app ryu.controller.ofp_handler of OFPHandler
 
-Switches mapeados atualmente: [2]
+Switches mapeados atualmente: [1]
 
-Switches mapeados atualmente: [2, 1]
+Switches mapeados atualmente: [1, 2]
 
-Switches mapeados atualmente: [2, 1, 3]
+Switches mapeados atualmente: [1, 2, 3]
 
-ARP recebido do IP 10.0.0.1, MAC ca:b0:d5:5c:20:2f no Switch 1, porta 1
+ARP recebido do IP 10.0.0.1, MAC 52:ca:62:c3:25:89 no Switch 1, porta 1
 
 ================= TOPOLOGIA =================
 Switches: 
@@ -20,15 +20,15 @@ Switches:
   s2
   s3
 Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
   s1 (porta 3) <-> s3 (porta 2)
-  s2 (porta 2) <-> s1 (porta 2)
   s2 (porta 3) <-> s3 (porta 3)
 Hosts:
-  10.0.0.1 (MAC ca:b0:d5:5c:20:2f) -> s1 (porta 1)
+  10.0.0.1 (MAC 52:ca:62:c3:25:89) -> s1 (porta 1)
 Conexo: True
 =============================================
 
-ARP recebido do IP 10.0.0.2, MAC 2e:6b:cc:e4:6c:9f no Switch 2, porta 1
+ARP recebido do IP 10.0.0.2, MAC da:3a:6d:83:3c:2e no Switch 2, porta 1
 
 ================= TOPOLOGIA =================
 Switches: 
@@ -36,16 +36,16 @@ Switches:
   s2
   s3
 Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
   s1 (porta 3) <-> s3 (porta 2)
-  s2 (porta 2) <-> s1 (porta 2)
   s2 (porta 3) <-> s3 (porta 3)
 Hosts:
-  10.0.0.1 (MAC ca:b0:d5:5c:20:2f) -> s1 (porta 1)
-  10.0.0.2 (MAC 2e:6b:cc:e4:6c:9f) -> s2 (porta 1)
+  10.0.0.1 (MAC 52:ca:62:c3:25:89) -> s1 (porta 1)
+  10.0.0.2 (MAC da:3a:6d:83:3c:2e) -> s2 (porta 1)
 Conexo: True
 =============================================
 
-ARP recebido do IP 10.0.0.3, MAC a6:d5:64:0a:50:70 no Switch 3, porta 1
+ARP recebido do IP 10.0.0.3, MAC 96:15:f8:dc:67:2e no Switch 3, porta 1
 
 ================= TOPOLOGIA =================
 Switches: 
@@ -53,12 +53,12 @@ Switches:
   s2
   s3
 Enlaces entre switches:
+  s1 (porta 2) <-> s2 (porta 2)
   s1 (porta 3) <-> s3 (porta 2)
-  s2 (porta 2) <-> s1 (porta 2)
   s2 (porta 3) <-> s3 (porta 3)
 Hosts:
-  10.0.0.1 (MAC ca:b0:d5:5c:20:2f) -> s1 (porta 1)
-  10.0.0.2 (MAC 2e:6b:cc:e4:6c:9f) -> s2 (porta 1)
-  10.0.0.3 (MAC a6:d5:64:0a:50:70) -> s3 (porta 1)
+  10.0.0.1 (MAC 52:ca:62:c3:25:89) -> s1 (porta 1)
+  10.0.0.2 (MAC da:3a:6d:83:3c:2e) -> s2 (porta 1)
+  10.0.0.3 (MAC 96:15:f8:dc:67:2e) -> s3 (porta 1)
 Conexo: True
 =============================================
