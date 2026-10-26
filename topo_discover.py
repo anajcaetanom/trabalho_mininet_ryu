@@ -33,7 +33,7 @@ class TopoDiscover(app_manager.RyuApp):
     @set_ev_cls(event.EventSwitchEnter)
     def _event_switch_enter_handler(self, ev):
         self._refresh_topology()
-        self.logger.info("Switches mapeados atualmente: %s", self.switches)
+        self.logger.info("\nSwitches mapeados atualmente: %s", self.switches)
 
     @set_ev_cls(event.EventLinkAdd)
     def _event_link_add_handler(self, ev):
@@ -50,7 +50,7 @@ class TopoDiscover(app_manager.RyuApp):
         arp_pkt = pkt.get_protocol(arp.arp)
 
         if arp_pkt:
-            self.logger.info("ARP recebido do IP %s, MAC %s no Switch %s, porta %s", 
+            self.logger.info("\nARP recebido do IP %s, MAC %s no Switch %s, porta %s", 
                              arp_pkt.src_ip, arp_pkt.src_mac, datapath.id, in_port)
             
             # Ignora portas que levam a outros switches
@@ -72,7 +72,7 @@ class TopoDiscover(app_manager.RyuApp):
         # Lógica iterativa para imprimir no terminal a topologia completa mapeada de forma amigável
         # (Switches disponíveis, Enlaces registrados e Servidores/Hosts conectados)
         grafo = self.graph
-        switch_dpids = sorted (node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'switches')
+        switch_dpids = sorted (node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'switch')
         hosts_ips = sorted (node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'host')
 
         string = ["", "================= TOPOLOGIA =================", "Switches: "]
@@ -96,7 +96,7 @@ class TopoDiscover(app_manager.RyuApp):
 
         # Verificacao extra: True se ha caminho entre quaisquer dois nos. False indica descoberta incompleta
         string.append("Conexo: %s" % (nx.is_connected(grafo) if len(grafo) else False))
-        string.append("==================================")
+        string.append("=============================================")
         self.logger.info("\n".join(string))
             
     @set_ev_cls(ofp_event.EventOFPSwitchFeatures, CONFIG_DISPATCHER)

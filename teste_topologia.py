@@ -41,7 +41,7 @@ def start_network(edge_list_file):
         net.addLink(a, b)   
     
     net.start()
-    print("Aguardando inicialização do controlador...")
+    print("Aguardando inicializacao do controlador...")
     sleep(5)  # tempo para o Ryu descobrir os enlaces via LLDP
     
     print("Enviando Gratuitous ARP de todos os hosts para descoberta pelo Ryu...")
