@@ -4,17 +4,17 @@ import networkx as nx
 from ryu.base import app_manager
 from ryu.controller import ofp_event
 from ryu.controller.handler import CONFIG_DISPATCHER, MAIN_DISPATCHER, set_ev_cls
-from ryu.lib.packet import arp, ethernet, ipv4, packet
+from ryu.lib.packet import arp, ipv4, packet
 from ryu.ofproto import ofproto_v1_3
 from ryu.topology import event
 from ryu.topology.api import get_link, get_switch
 
 
 class TopoDiscover(app_manager.RyuApp):
-    OFP_VERSIONS = [ofproto_v1_3.OFP_VERSION]
+    OFP_VERSIONS = (ofproto_v1_3.OFP_VERSION,)
 
     def __init__(self, *args, **kwargs):
-        super(TopoDiscover, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.topology_api_app = self
         self.switches = []
         self.links = []
@@ -42,7 +42,6 @@ class TopoDiscover(app_manager.RyuApp):
     @set_ev_cls(event.EventLinkAdd)
     def _event_link_add_handler(self, ev):
         self._refresh_topology()
-        unique = {frozenset((s, d)) for s, d, _, _ in self.links}
 
     @set_ev_cls(ofp_event.EventOFPPacketIn, MAIN_DISPATCHER)
     def _packet_in_handler(self, ev):
@@ -133,60 +132,55 @@ class TopoDiscover(app_manager.RyuApp):
     def _event_link_delete_handler(self, ev):
         self._refresh_topology()
         self._clear_all_ip_flows()
-            
+
     def print_full_topology(self):
-        # Lógica iterativa para imprimir no terminal a topologia completa mapeada de forma amigável
-        # (Switches disponíveis, Enlaces registrados e Servidores/Hosts conectados)
         grafo = self.graph
-        switch_dpids = sorted (node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'switch')
-        hosts_ips = sorted (node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'host')
+        switch_dpids = sorted(node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'switch')
+        hosts_ips = sorted(node for node, attrs in grafo.nodes(data=True) if attrs.get('kind') == 'host')
 
-        string = ["", "================= TOPOLOGIA =================", "Switches: "]
+        lines = ["", "================= TOPOLOGIA =================", "Switches: "]
         for dpid in switch_dpids:
-            string.append("  s%s" % dpid)
+            lines.append(f"  s{dpid}")
 
-        string.append("Enlaces entre switches:")
-        switch_links = grafo.subgraph(switch_dpids).edges(data=True)
+        lines.append("Enlaces entre switches:")
         for dpid_a, dpid_b, attrs in sorted(grafo.subgraph(switch_dpids).edges(data=True)):
             if dpid_a < dpid_b:
-                string.append("  s%s (porta %s) <-> s%s (porta %s)"
-                            % (dpid_a, attrs['port'],
-                                dpid_b, grafo.edges[dpid_b, dpid_a]['port']))
+                port_b = grafo.edges[dpid_b, dpid_a]['port']
+                lines.append(f"  s{dpid_a} (porta {attrs['port']}) <-> s{dpid_b} (porta {port_b})")
 
-        string.append("Hosts:")
+        lines.append("Hosts:")
         for ip in hosts_ips:
             dpid = next(iter(grafo.neighbors(ip)))
-            port = grafo.edges[ip, dpid]['port'][dpid]
-            string.append("  %s (MAC %s) -> s%s (porta %s)"
-                          % (ip, grafo.nodes[ip]['mac'], dpid, port))
+            port = grafo.edges[ip, dpid]['port']
+            mac = grafo.nodes[ip]['mac']
+            lines.append(f"  {ip} (MAC {mac}) -> s{dpid} (porta {port})")
 
-        # Verificacao extra: True se ha caminho entre quaisquer dois nos. False indica descoberta incompleta
-        string.append("Conexo: %s" % (nx.is_weakly_connected(grafo) if len(grafo) else False))
-        string.append("=============================================")
-        self.logger.info("\n".join(string))
+        is_connected = nx.is_weakly_connected(grafo) if len(grafo) else False
+        lines.append(f"Conexo: {is_connected}")
+        lines.append("=============================================")
+        self.logger.info("\n".join(lines))
 
     def _switch_ports(self):
-            """
-            Conjunto de (dpid, porta) usados em enlaces entre switches. 
-            """
-            ports = set()
-            for src, dst, sport, dport in self.links:
-                ports.add((src, sport))
-                ports.add((dst, dport))
-            
-            return ports
+        """
+        Conjunto de (dpid, porta) usados em enlaces entre switches.
+        """
+        ports = set()
+        for src, dst, sport, dport in self.links:
+            ports.add((src, sport))
+            ports.add((dst, dport))
+        return ports
 
     def _update_graph(self):
         """
         Reconstroi o grafo networkx a partir do estado atual.
-        """ 
+        """
         graph = nx.DiGraph()
 
         for dpid in self.switches:
             graph.add_node(dpid, kind='switch')
         for src, dst, sport, dport in self.links:
             graph.add_edge(src, dst, port=sport)
-            graph.add_edge(dst, src,  port=dport)
+            graph.add_edge(dst, src, port=dport)
         for ip, h in self.hosts.items():
             graph.add_node(ip, kind='host', mac=h['mac'])
             graph.add_edge(ip, h['dpid'], port=h['port'])
@@ -195,7 +189,6 @@ class TopoDiscover(app_manager.RyuApp):
         self.graph = graph
 
     def get_route_ospf(self, switch_in, switch_out):
-        # primeiro menor caminho
         try:
             return nx.shortest_path(self.graph, switch_in, switch_out)
         except (nx.NetworkXNoPath, nx.NodeNotFound):
@@ -216,13 +209,12 @@ class TopoDiscover(app_manager.RyuApp):
             return self.get_route_ecmp(switch_in, switch_out, flow_key)
         return self.get_route_ospf(switch_in, switch_out)
 
-
     def add_flow(self, dp, priority, match, actions, idle_timeout=0):
         parser = dp.ofproto_parser
         ofp = dp.ofproto
         inst = [parser.OFPInstructionActions(ofp.OFPIT_APPLY_ACTIONS, actions)]
         dp.send_msg(parser.OFPFlowMod(datapath=dp, priority=priority, match=match,
-                                    instructions=inst, idle_timeout=idle_timeout))
+                                      instructions=inst, idle_timeout=idle_timeout))
 
     def install_path(self, src_ip, dst_ip, method='ospf'):
         src, dst = self.hosts.get(src_ip), self.hosts.get(dst_ip)
@@ -241,7 +233,7 @@ class TopoDiscover(app_manager.RyuApp):
                 if i + 1 < len(hops):
                     out_port = self.graph.edges[dpid, hops[i + 1]]['port']
                 else:
-                    out_port = last_port  # último switch: porta do host
+                    out_port = last_port
                 match = parser.OFPMatch(eth_type=0x0800, ipv4_src=s_ip, ipv4_dst=d_ip)
                 actions = [parser.OFPActionOutput(out_port)]
                 self.add_flow(dp, 10, match, actions, idle_timeout=30)
